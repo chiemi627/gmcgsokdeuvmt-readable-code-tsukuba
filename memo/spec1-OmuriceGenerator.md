@@ -1,6 +1,7 @@
 # 仕様1: レシピを出力
 
 ### 実際のコード
+
 * [OmuriceGenerator.java](https://github.com/gmcgsokdeuvmt/gmcgsokdeuvmt-readable-code-tsukuba/blob/master/java/OmuriceGenerator.java#L1)
 
 1行目
