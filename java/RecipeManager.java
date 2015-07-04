@@ -14,7 +14,9 @@ public class RecipeManager{
             System.exit(0);
         }
 
-        manager.printRecipeList();
+        //manager.printRecipeList();
+        Recipe recipe = manager.getRecipeByID(Integer.parseInt(args[0]));
+        System.out.println(recipe.title);
     }
 
     public boolean initManager(){
@@ -34,6 +36,18 @@ public class RecipeManager{
             return null;
         }
         return this.recipeList.get(i).title;
+    }
+
+    //ユーザが指定したＩＤのレシピを出力する
+    public Recipe getRecipeByID(int query_id){
+        for(int i=0;i<recipeList.size();i++){
+            Recipe recipe = this.recipeList.get(i);
+            if(recipe.id == query_id){
+                return recipe;
+            }
+        }
+        return null;
+
     }
 
     //レシピリストを出力する
