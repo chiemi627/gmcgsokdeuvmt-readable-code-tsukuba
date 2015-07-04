@@ -3,29 +3,13 @@ import java.io.*;
 
 public class RecipeGenerator {
 
-    List<Recipe> recipeList = new ArrayList<Recipe>();
     static String recipefile = "recipe-data.csv";
 
-    public String getRecipeTitle(int i){
-        if(i>=this.recipeList.size()){
-            System.err.println(i+"番目のレシピはありません。");
-            return null;
-        }
-        return this.recipeList.get(i).title;
-    }
-
-    //レシピリストを出力する
-    public void printRecipeList(){
-        for(int i=0;i<recipeList.size();i++){
-            String title = this.getRecipeTitle(i);
-            if(title != null) {
-                System.out.println(title);
-            }
-        }
-    }
 
     //レシピリストをファイルから読み込む
-    public void generateRecipesFromFile(){
+    public static List<Recipe> generateRecipesFromFile(){
+
+        List<Recipe> recipeList = new ArrayList<Recipe>();
 
         try {
             File file = new File(RecipeGenerator.recipefile);
@@ -48,9 +32,12 @@ public class RecipeGenerator {
         } catch (FileNotFoundException e) {
             System.err.println("Recipe file can not be found.: "+recipefile);
             e.printStackTrace();
+            return null;
         } catch (IOException e) {
             e.printStackTrace();
+            return null;
         }
+        return recipeList;
     }
 
     //CSVファイルの1行分からレシピを作る
@@ -68,10 +55,5 @@ public class RecipeGenerator {
 
     }
 
-    public static void main(String[] args){
-        RecipeGenerator generator = new RecipeGenerator();
-        generator.generateRecipesFromFile();
-        generator.printRecipeList();
-    }
 
 }
