@@ -3,7 +3,7 @@ import java.io.*;
 
 public class RecipeGenerator {
 
-    static String recipefile = "recipe-data.csv";
+    final static String recipefile = "../recipe-data.csv";
 
 
     //レシピリストをファイルから読み込む

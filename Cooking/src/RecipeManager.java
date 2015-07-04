@@ -9,17 +9,26 @@ public class RecipeManager{
 
 
         //最初にやる事（データの読み込み）
-        if(!manager.initManager()){
+        if(!manager.init()){
             System.out.println("レシピデータの初期化に失敗しました");
             System.exit(0);
         }
 
         //manager.printRecipeList();
-        Recipe recipe = manager.getRecipeByID(Integer.parseInt(args[0]));
-        System.out.println(recipe.title);
+        if(args.length == 0){
+            manager.printRecipeList();
+        }
+        else if(args.length == 1) {
+            Recipe recipe = manager.getRecipeByID(Integer.parseInt(args[0]));
+            System.out.println(recipe.title);
+        }
+        else{
+            System.err.println("Usage: RecipeManager <RecipeNo>");
+            System.exit(0);
+        }
     }
 
-    public boolean initManager(){
+    public boolean init(){
         //レシピの生成(ファイルからのロード)
         recipeList = RecipeGenerator.generateRecipesFromFile();
         if(recipeList==null){
