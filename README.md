@@ -5,7 +5,7 @@
 
 ### 実装コードの場所
 
-* [OmuriceGenerator.java](java/OmuriceGenerator.java)
+* [OmuriceGenerator.java](https://github.com/gmcgsokdeuvmt/gmcgsokdeuvmt-readable-code-tsukuba/java/OmuriceGenerator.java)
 
 javaフォルダ下に ```OmuriceGenerator.java``` ファイルがあります。これを自分の環境下に置くようにしてください。
 
