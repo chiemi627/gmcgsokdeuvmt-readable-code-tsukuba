@@ -1,24 +1,29 @@
 使用言語: Java
 アカウント名: gmcgsokdeuvmt
 
-## 仕様1 レシピを出力
+## 概要
+　仕様5 レシピ一覧をIDつきで出力する
 
 ### 実装コードの場所
 
-* [OmuriceGenerator.java](https://github.com/gmcgsokdeuvmt/gmcgsokdeuvmt-readable-code-tsukuba/blob/master/java/OmuriceGenerator.java)
+* [OmuriceGenerator.java](https://github.com/chiemi627/gmcgsokdeuvmt-readable-code-tsukuba/java/*.java)
 
-javaフォルダ下に ```OmuriceGenerator.java``` ファイルがあります。これを自分の環境下に置くようにしてください。
+javaフォルダ下に 以下のjavaファイルがあります。これを自分の環境下に置くようにしてください。
+- RecipeManager.java
+- RecipeGenerator.java
+- Recipe.java
+またレシピファイルもjavaファイルにはいっていますので、これも自分の環境下においてください。
 
 ### java ファイルのコンパイル
 
-自分の環境下にある ```OmuriceGenerator.java``` のあるディレクトリに移動してください。
+自分の環境下にあるjava のあるディレクトリに移動してください。
 ターミナルで以下のようにコマンドを叩きます。
 
 ```
-javac OmuriceGenerator.java
+javac *.java
 ```
 
-この時、コンパイルによって ```OmuriceGenerator.class``` が生成されます。
+この時、コンパイルによってクラスファイル が生成されます。
 
 #### コンパイルできない？
 
@@ -33,17 +38,19 @@ javac OmuriceGenerator.java
 
 コンパイルが完了したら java ファイルを実行して、その動作を確認してみてください。
 
-以下のように ```OmuriceGenerator``` を実行してみてください。今回は**入力**を持たないので、引数は必要ありません。
+以下のように ```RecipeManager``` を実行してみてください。今回は**入力**を持たないので、引数は必要ありません。
 
 ```
-java OmuriceGenerator
+java RecipeManager
 ```
 
 #### 実行例
 
-```OmuriceGenerator``` を実行すると```オムライス```という文字列が表示されます。確認してみてください。
+```RecipeManager``` を実行すると登録されたレシピ名がレシピIDとともに表示されます。確認してみてください。
 
 ```
-λ java OmuriceGenerator
-オムライス
+λ java RecipeManager
+0:オムライス
+1:親子丼
+2:杏仁豆腐
 ```
