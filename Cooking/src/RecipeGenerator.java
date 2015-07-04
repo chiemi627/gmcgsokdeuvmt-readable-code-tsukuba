@@ -23,8 +23,8 @@ public class RecipeGenerator {
                 String[] items = line.split(",");
 
                 //とりあえず最初は0番目にタイトル
-                //TODO: フォーマットの変化に対応できるようにする
                 recipe.title = items[0];
+                recipe.description = items[1];
                 //レシピリストにレシピを追加する
                 recipeList.add(recipe);
             }

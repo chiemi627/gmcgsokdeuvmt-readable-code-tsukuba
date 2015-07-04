@@ -19,7 +19,7 @@ public class RecipeManager{
         }
         else if(args.length == 1) {
             Recipe recipe = manager.getRecipeByID(Integer.parseInt(args[0]));
-            System.out.println(recipe.title);
+            System.out.println(recipe.getRecipeInfo());
         }
         else{
             System.err.println("Usage: RecipeManager <RecipeNo>");
