@@ -7,7 +7,6 @@ public class RecipeManager{
     public static void main(String[] args){
         RecipeManager manager = new RecipeManager();
 
-
         //最初にやる事（データの読み込み）
         if(!manager.init()){
             System.out.println("レシピデータの初期化に失敗しました");
@@ -38,13 +37,13 @@ public class RecipeManager{
         return true;
     }
 
-    //i番目のレシピのタイトルを出力する
-    public String getRecipeTitle(int i){
+    //i番目のレシピを出力する
+    public Recipe getRecipe(int i){
         if(i>=this.recipeList.size()){
             System.err.println(i+"番目のレシピはありません。");
             return null;
         }
-        return this.recipeList.get(i).title;
+        return this.recipeList.get(i);
     }
 
     //ユーザが指定したＩＤのレシピを出力する
@@ -55,6 +54,8 @@ public class RecipeManager{
                 return recipe;
             }
         }
+        //エラー処理：そのIDのレシピは無い
+        System.out.println("IDが"+query_id+"のレシピはありません。");
         return null;
 
     }
@@ -62,7 +63,7 @@ public class RecipeManager{
     //レシピリストを出力する
     public void printRecipeList(){
         for(int i=0;i<recipeList.size();i++){
-            Recipe recipe = this.recipeList.get(i);
+            Recipe recipe = this.getRecipe(i);
             System.out.println(recipe.getRecipeInfo());
         }
     }

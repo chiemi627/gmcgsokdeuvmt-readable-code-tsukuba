@@ -6,9 +6,9 @@
 
 ### 実装コードの場所
 
-* [OmuriceGenerator.java](https://github.com/chiemi627/gmcgsokdeuvmt-readable-code-tsukuba/java/*.java)
+* [RecipeManager.java](https://github.com/chiemi627/gmcgsokdeuvmt-readable-code-tsukuba/java/*.java)
 
-javaフォルダ下に 以下のjavaファイルがあります。これを自分の環境下に置くようにしてください。
+srcフォルダ下に 以下のjavaファイルがあります。これを自分の環境下に置くようにしてください。
 - RecipeManager.java
 - RecipeGenerator.java
 - Recipe.java
@@ -24,15 +24,6 @@ javac *.java
 ```
 
 この時、コンパイルによってクラスファイル が生成されます。
-
-#### コンパイルできない？
-
-もし、コンパイルができない場合、ファイル名・クラス名を間違えている可能性があります。java の場合、ファイル名とクラス名が一致する必要がありますので、よく確認してみてください。
-
-#### そもそも javac できない
-
-そもそも javac 出来ない可能性があります。Windows の場合 javac のプログラムは
-```C:\\Program Files\\Java\\jdk1.8.0_40\\bin\\```下にあると思います。ここにパスを通すようにしてみて下さい。
 
 ### java ファイルの実行
 
@@ -54,3 +45,5 @@ java RecipeManager
 1:親子丼
 2:杏仁豆腐
 ```
+
+また、```RecipeManager``` の後にレシピ番号を指定すると、指定されたレシピ名のみ表示されます。
