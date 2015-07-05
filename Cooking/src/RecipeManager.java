@@ -1,70 +1,51 @@
-import java.util.*;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
-public class RecipeManager{
+/**
+ * Created by chiemi on 2015/07/05.
+ */
+public class RecipeManager {
 
-    List<Recipe> recipeList;
+    CookingDatabase db = new CookingDatabase();
+
+    public boolean init(){
+        if( !CSVFileLoader.loadDataset(db) ) {return false;}
+        return true;
+    }
+
+    public void printAllRecipesGroupedByUser(){
+        for(int i=0;i<db.countUser();i++){
+            User user = db.getUser(i);
+            System.out.println("ユーザ名："+user.name);
+            List<Recipe> recipeList = db.getRecipesByUser(user);
+            for(int j=0;j<recipeList.size();j++){
+                System.out.println(recipeList.get(j).getRecipeInfo());
+            }
+            System.out.println("");
+        }
+    }
 
     public static void main(String[] args){
         RecipeManager manager = new RecipeManager();
 
-        //最初にやる事（データの読み込み）
+        //起動時の処理
         if(!manager.init()){
-            System.out.println("レシピデータの初期化に失敗しました");
+            System.out.println("システムの初期化に失敗しました");
             System.exit(0);
         }
 
         //manager.printRecipeList();
         if(args.length == 0){
-            manager.printRecipeList();
+            manager.printAllRecipesGroupedByUser();
         }
         else if(args.length == 1) {
-            Recipe recipe = manager.getRecipeByID(Integer.parseInt(args[0]));
+            Recipe recipe = manager.db.getRecipeByID(Integer.parseInt(args[0]));
             System.out.println(recipe.getRecipeInfo());
         }
         else{
             System.err.println("Usage: RecipeManager <RecipeNo>");
             System.exit(0);
-        }
-    }
-
-    public boolean init(){
-        //レシピの生成(ファイルからのロード)
-        recipeList = RecipeGenerator.generateRecipesFromFile();
-        if(recipeList==null){
-            System.out.println("レシピデータのロードに失敗しました");
-            return false;
-        }
-        return true;
-    }
-
-    //i番目のレシピを出力する
-    public Recipe getRecipe(int i){
-        if(i>=this.recipeList.size()){
-            System.err.println(i+"番目のレシピはありません。");
-            return null;
-        }
-        return this.recipeList.get(i);
-    }
-
-    //ユーザが指定したＩＤのレシピを出力する
-    public Recipe getRecipeByID(int query_id){
-        for(int i=0;i<recipeList.size();i++){
-            Recipe recipe = this.recipeList.get(i);
-            if(recipe.id == query_id){
-                return recipe;
-            }
-        }
-        //エラー処理：そのIDのレシピは無い
-        System.out.println("IDが"+query_id+"のレシピはありません。");
-        return null;
-
-    }
-
-    //レシピリストを出力する
-    public void printRecipeList(){
-        for(int i=0;i<recipeList.size();i++){
-            Recipe recipe = this.getRecipe(i);
-            System.out.println(recipe.getRecipeInfo());
         }
     }
 
