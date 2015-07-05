@@ -22,7 +22,34 @@ public class CookingDatabase {
         recipe_user_map.put(recipe, user);
     }
 
-    //i番目のレシピを出力する
+    //ユーザ数を求める
+    public int countUsers(){
+        return this.userList.size();
+    }
+
+    //i番目のユーザを求める
+    public User getUser(int i){
+        if(i>=this.userList.size()){
+            System.err.println(i+"番目のユーザは登録されていません");
+            return null;
+        }
+        else{
+            return this.userList.get(i);
+        }
+    }
+
+    //IDがquery_idであるユーザを求める
+    public User getUserByID(int query_id){
+        for(int i=0;i<this.countUsers();i++){
+            User u = getUser(i);
+            if(u.id==query_id){
+                return u;
+            }
+        }
+        return null;
+    }
+
+    //i番目のレシピを求める
     public Recipe getRecipe(int i){
         if(i>=this.recipeList.size()){
             System.err.println(i+"番目のレシピはありません。");
@@ -31,7 +58,7 @@ public class CookingDatabase {
         return this.recipeList.get(i);
     }
 
-    //ユーザが指定したＩＤのレシピを出力する
+    //ユーザが指定したＩＤのレシピを求める
     public Recipe getRecipeByID(int query_id){
         for(int i=0;i<recipeList.size();i++){
             Recipe recipe = this.recipeList.get(i);
@@ -45,41 +72,13 @@ public class CookingDatabase {
 
     }
 
-    public User getUser(int i){
-        if(i>=this.userList.size()){
-            System.err.println(i+"番目のユーザは登録されていません");
+    //ユーザの登録したレシピをリストを求める
+    public List<Recipe> getRecipeListByUser(User u) {
+        if (!this.user_recipe_map.containsKey(u)) {
+            System.err.println("ユーザ " + u.name + " は登録されていません");
             return null;
-        }
-        else{
-            return this.userList.get(i);
-        }
-    }
-
-    public int countUser(){
-        return this.userList.size();
-    }
-
-    List<Recipe> getRecipesByUser(User u){
-        if(!this.user_recipe_map.containsKey(u)){
-            System.err.println("ユーザ "+u.name+" は登録されていません");
-            return null;
-        }
-        else{
+        } else {
             return this.user_recipe_map.get(u);
         }
     }
-
-//    //レシピリストをユーザごとに出力する
-//    public void printAllRecipesGroupedByUser(){
-//        for(int i=0;i<this.userList.size();i++){
-//            User user = new this.userList.get(i);
-//            System.out.println("ユーザ名："+user.name);
-//            List<Recipe> recipe_list = this.user_recipe_map.get(user);
-//            for(int j=0;j<recipe_list.size();j++){
-//                Recipe recipe = this.getRecipe(j);
-//                System.out.println(recipe.getRecipeInfo());
-//            }
-//        }
-//    }
-
 }

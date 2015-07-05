@@ -1,5 +1,3 @@
-import java.io.*;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -8,23 +6,6 @@ import java.util.List;
 public class RecipeManager {
 
     CookingDatabase db = new CookingDatabase();
-
-    public boolean init(){
-        if( !CSVFileLoader.loadDataset(db) ) {return false;}
-        return true;
-    }
-
-    public void printAllRecipesGroupedByUser(){
-        for(int i=0;i<db.countUser();i++){
-            User user = db.getUser(i);
-            System.out.println("ユーザ名："+user.name);
-            List<Recipe> recipeList = db.getRecipesByUser(user);
-            for(int j=0;j<recipeList.size();j++){
-                System.out.println(recipeList.get(j).getRecipeInfo());
-            }
-            System.out.println("");
-        }
-    }
 
     public static void main(String[] args){
         RecipeManager manager = new RecipeManager();
@@ -35,7 +16,6 @@ public class RecipeManager {
             System.exit(0);
         }
 
-        //manager.printRecipeList();
         if(args.length == 0){
             manager.printAllRecipesGroupedByUser();
         }
@@ -46,6 +26,24 @@ public class RecipeManager {
         else{
             System.err.println("Usage: RecipeManager <RecipeNo>");
             System.exit(0);
+        }
+    }
+
+    public boolean init(){
+        //ファイルからデータをロードしてCookingDatabaseに保存
+        if( !CSVFileLoader.loadData(db) ) {return false;}
+        return true;
+    }
+
+    public void printAllRecipesGroupedByUser(){
+        for(int i=0;i<db.countUsers();i++){
+            User user = db.getUser(i);
+            System.out.println("ユーザ名："+user.name);
+            List<Recipe> recipeList = db.getRecipeListByUser(user);
+            for(int j=0;j<recipeList.size();j++){
+                System.out.println(recipeList.get(j).getRecipeInfo());
+            }
+            System.out.println("");
         }
     }
 

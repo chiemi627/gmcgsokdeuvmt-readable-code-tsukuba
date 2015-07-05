@@ -1,12 +1,12 @@
-import java.util.*;
 import java.io.*;
 
 public class CSVFileLoader {
 
-    final static String recipe_path = "recipes";
+    final static String recipe_dir = "recipes";
     final static String user_list_file = "user_prof.csv";
 
-    public static boolean loadDataset(CookingDatabase db){
+    //すべてのデータをファイルからロードする
+    public static boolean loadData(CookingDatabase db){
         try {
             File file = new File(user_list_file);
             FileReader filereader = new FileReader(file);
@@ -14,8 +14,10 @@ public class CSVFileLoader {
 
             String line;
             while ((line = br.readLine()) != null) {
-                String user_name = line;
-                loadUsersRecipe(db, user_name);
+                String[] items = line.split(",");
+                String user_name = items[0];
+                String recipe_file = items[1];
+                loadRecipes(db, user_name, recipe_file);
             }
 
         }catch(FileNotFoundException e){
@@ -29,24 +31,14 @@ public class CSVFileLoader {
     }
 
 
-    //RecipeListオブジェクトを作成する
-    public static boolean loadUsersRecipe(CookingDatabase db, String user_name){
-
-        String recipe_file = recipe_path+"/"+user_name+".csv";
+    //ユーザ1人分のRecipeListオブジェクトをロードする
+    public static boolean loadRecipes(CookingDatabase db, String user_name, String recipe_file){
 
         User user = new User(user_name);
-        if(!CSVFileLoader.loadRecipes(db, user, recipe_file)){
-            System.err.println("データのローディングに失敗しました");
-            return false;
-        }
-        return true;
-    }
-
-    //レシピのリストをファイルから読み込む
-    public static boolean loadRecipes(CookingDatabase db, User user, String recipefile){
+        String recipe_path = recipe_dir+"/"+recipe_file;
 
         try {
-            File file = new File(recipefile);
+            File file = new File(recipe_path);
             FileReader filereader = new FileReader(file);
             BufferedReader br = new BufferedReader(filereader);
             String line;
@@ -56,15 +48,16 @@ public class CSVFileLoader {
                 //CSVファイルからRecipeデータを作る
                 String[] items = line.split(",");
 
-                //とりあえず最初は0番目にタイトル
+                //0番目にタイトル
                 recipe.title = items[0];
+                //1番目に説明
                 recipe.description = items[1];
                 //レシピリストにレシピを追加する
                 db.addRecipe(user,recipe);
             }
             br.close();
         } catch (FileNotFoundException e) {
-            System.err.println("Recipe file can not be found.: "+recipefile);
+            System.err.println("Recipe file can not be found.: "+recipe_file);
             e.printStackTrace();
             return false;
         } catch (IOException e) {
